@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:'Roboto' , Arial;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        .calculator {
+            width: 350px;
+            background-color: #400b1c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .display {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: right;
+            padding: 25px;
+            font-size: 1.5em;
+            height: 70px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .button {
+            padding: 20px;
+            font-size: 1.5em;
+            outline: none;
+            border: none;
+        }
+        .button.operator {
+            background-color: #AEC3AE;
+            color: #fff;
+        }
+        .button.clear {
+            background-color: #AF1740;
+            color: #fff;
+        }
+        .button.equals {
+            background-color: #AF1740;
+            color: #fff;
+        }
+        .button.number {
+            background-color: #94A684;
+            color: #fff;
+        }
+        .button.ZERO{
+            background-color:#AEC3AE;
+            color: #fff;
+        }    
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="display" id="display">SHAYNE</div>
+    <div class="buttons">
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="appendOperator('%')">%</button>
+        <button class="button operator" onclick="appendOperator('/')">/</button>
+        <button class="button operator" onclick="appendOperator('*')">*</button>
+
+        <button class="button number" onclick="appendNumber('7')">7</button>
+        <button class="button number" onclick="appendNumber('8')">8</button>
+        <button class="button number" onclick="appendNumber('9')">9</button>
+        <button class="button operator" onclick="appendOperator('-')">-</button>
+        <button class="button number" onclick="appendNumber('4')">4</button>
+        <button class="button number" onclick="appendNumber('5')">5</button>
+        <button class="button number" onclick="appendNumber('6')">6</button>
+        <button class="button operator" onclick="appendOperator('+')">+</button>
+
+        <button class="button number" onclick="appendNumber('1')">1</button>
+        <button class="button number" onclick="appendNumber('2')">2</button>
+        <button class="button number" onclick="appendNumber('3')">3</button>
+
+        <button class="button equals" onclick="calculate()"style= "grid-row: span 2;">=</button>
+        <button class="button ZERO" onclick="appendNumber('0')" style="grid-column: span 3;">0</button>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '0';
+    
+        function clearDisplay() {
+            currentInput = '0';
+            display.innerText = currentInput;
+        }
+    
+        function appendNumber(number) {
+            if (currentInput === '0') {
+                currentInput = number;
+            } else {
+                currentInput += number;
+            }
+            display.innerText = currentInput;
+        }
+    
+        function appendOperator(operator) {
+            if (!currentInput.endsWith(operator)) {
+                currentInput += ' ' + operator + ' ';
+            }
+            display.innerText = currentInput;
+        }
+    
+        function calculate() {
+            try {
+                currentInput = eval(currentInput.replace('%', '/100')).toString();
+            } catch (e) {
+                currentInput = 'Error';
+            }
+            display.innerText = currentInput;
+        }
+    </script>
+</div>
+</body>
+</html>
